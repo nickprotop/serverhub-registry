@@ -1,7 +1,18 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-01-27T06:36:14Z",
+  "updated_at": "2026-01-27T17:33:33Z",
   "widgets": [
+    {
+      "id": "nickprotop/pi-sensors",
+      "name": "Pi Sensors",
+      "author": "nickprotop",
+      "category": "monitoring",
+      "description": "Monitor Raspberry Pi temperature, throttling status, and voltages with fallback support for non-Pi systems",
+      "verification_level": "verified",
+      "latest_version": "1.0",
+      "manifest_url": "widgets/monitoring/nickprotop-pi-sensors/manifest.yaml"
+    }
+,
     {
       "id": "nickprotop/system-load",
       "name": "System Load Monitor",
