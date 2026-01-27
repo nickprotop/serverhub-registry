@@ -1,0 +1,47 @@
+name: Validate Widget Manifest
+
+on:
+  pull_request:
+    paths:
+      - 'widgets/**/*.yaml'
+      - 'schemas/**/*.json'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install validation tools
+        run: |
+          npm install -g ajv-cli js-yaml
+
+      - name: Validate manifest schema
+        run: |
+          for manifest in widgets/**/*.yaml; do
+            if [ -f "$manifest" ]; then
+              echo "Validating $manifest..."
+              # Convert YAML to JSON for ajv
+              js-yaml "$manifest" > /tmp/manifest.json
+              ajv validate -s schemas/widget-v1.schema.json -d /tmp/manifest.json --strict=true
+            fi
+          done
+
+      - name: Check manifest structure
+        run: |
+          bash scripts/verify-manifest-structure.sh
+
+      - name: Verify checksums
+        run: |
+          bash scripts/verify-checksums.sh
+
+      - name: Check for security issues
+        run: |
+          bash scripts/security-scan.sh

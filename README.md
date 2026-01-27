@@ -1,0 +1,70 @@
+# ServerHub Widget Registry
+
+Official marketplace for ServerHub community widgets.
+
+## 🔍 Browse Widgets
+
+Visit the [ServerHub Marketplace](https://serverhub.github.io/registry/) to browse available widgets.
+
+Or use the CLI:
+```bash
+serverhub marketplace list
+serverhub marketplace search <query>
+```
+
+## 📦 Install Widgets
+
+```bash
+# Search for widgets
+serverhub marketplace search monitoring
+
+# Get detailed information
+serverhub marketplace info username/widget-name
+
+# Install a widget
+serverhub marketplace install username/widget-name
+```
+
+## 🚀 Submit a Widget
+
+Want to share your widget with the community? See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for submission guidelines.
+
+## 🔒 Security
+
+This registry uses a security-first approach:
+- **SHA256 checksums** - All widgets have mandatory checksums
+- **Code review** - Verified widgets are manually reviewed by maintainers
+- **Verification tiers** - Clear badges indicate review status
+- **GitHub-only** - Widgets must be hosted on GitHub releases
+
+See [SECURITY.md](docs/SECURITY.md) for our security policy.
+
+## 📋 Widget Categories
+
+- **monitoring** - System and application monitoring widgets
+- **infrastructure** - Infrastructure management and status
+- **development** - Development tools and workflows
+- **databases** - Database monitoring and management
+- **networking** - Network status and diagnostics
+- **security** - Security monitoring and alerts
+- **cloud** - Cloud provider integrations
+- **utilities** - General purpose utilities
+
+## 📚 Documentation
+
+- [Contributing Guide](docs/CONTRIBUTING.md) - How to submit widgets
+- [Manifest Specification](docs/MANIFEST_SPEC.md) - Widget manifest format
+- [Security Policy](docs/SECURITY.md) - Security guidelines
+
+## 📊 Registry Statistics
+
+Total widgets: 0 (marketplace launching soon!)
+
+## 🤝 Community
+
+- Report issues: [ServerHub Issues](https://github.com/serverhub/serverhub/issues)
+- Discussions: [ServerHub Discussions](https://github.com/serverhub/serverhub/discussions)
+
+---
+
+Built with ❤️ by the ServerHub community

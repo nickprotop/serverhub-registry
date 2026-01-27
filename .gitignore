@@ -1,0 +1,13 @@
+# Node modules (if using npm for validation)
+node_modules/
+
+# Temporary files
+*.tmp
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

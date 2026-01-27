@@ -1,0 +1,180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://serverhub.github.io/registry/schemas/widget-v1.schema.json",
+  "title": "ServerHub Widget Manifest",
+  "description": "Schema for ServerHub marketplace widget manifests",
+  "type": "object",
+  "required": ["schema_version", "metadata", "versions"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Manifest schema version"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["id", "name", "author", "homepage", "description", "category", "license", "verification_level"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+/[a-z0-9-]+$",
+          "description": "Unique widget identifier in format: username/widget-name"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 100,
+          "description": "Human-readable widget name"
+        },
+        "author": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$",
+          "description": "GitHub username"
+        },
+        "homepage": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://github\\.com/",
+          "description": "Widget repository URL"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500,
+          "description": "Brief widget description"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "monitoring",
+            "infrastructure",
+            "development",
+            "databases",
+            "networking",
+            "security",
+            "cloud",
+            "utilities"
+          ],
+          "description": "Widget category"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "minItems": 0,
+          "maxItems": 10,
+          "description": "Keywords for search"
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SPDX license identifier"
+        },
+        "verification_level": {
+          "type": "string",
+          "enum": ["verified", "community", "unverified"],
+          "description": "Verification status"
+        }
+      },
+      "additionalProperties": false
+    },
+    "versions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["version", "released", "min_serverhub_version", "changelog", "artifacts"],
+        "properties": {
+          "version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[a-z0-9.-]+)?$",
+            "description": "Semantic version"
+          },
+          "released": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Release timestamp (ISO 8601)"
+          },
+          "min_serverhub_version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+            "description": "Minimum ServerHub version required"
+          },
+          "changelog": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Description of changes"
+          },
+          "artifacts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["name", "url", "sha256"],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_.-]+\\.(sh|py|rb|js)$",
+                  "description": "Artifact filename"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "pattern": "^https://(github\\.com/.*/releases/download/|raw\\.githubusercontent\\.com/)",
+                  "description": "Download URL (must be GitHub)"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$",
+                  "description": "SHA256 checksum (lowercase hex)"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "system_commands": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_-]+$"
+          },
+          "description": "Required system commands"
+        },
+        "optional": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9_-]+$"
+          },
+          "description": "Optional system commands"
+        }
+      },
+      "additionalProperties": false
+    },
+    "config": {
+      "type": "object",
+      "properties": {
+        "example": {
+          "type": "string",
+          "description": "Example configuration YAML"
+        },
+        "default_refresh": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Recommended refresh interval in seconds"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
