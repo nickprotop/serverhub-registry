@@ -2,6 +2,18 @@
 
 Official marketplace for ServerHub community widgets.
 
+## What is ServerHub?
+
+[ServerHub](https://github.com/nickprotop/ServerHub) is an extensible terminal dashboard for Linux servers and homelabs. It provides real-time monitoring and interactive control through customizable widgets.
+
+Unlike traditional monitoring tools that just display data, ServerHub widgets can export context-aware actions—restart services, upgrade packages, manage containers, and more—directly from your dashboard.
+
+**Key features:**
+- 14 bundled widgets (CPU, memory, Docker, systemd, updates, etc.)
+- Write custom widgets in any language (bash, Python, Node.js, Go, Rust, etc.)
+- Security-first design with SHA256 validation
+- Responsive terminal UI with keyboard navigation
+
 ## 🔍 Browse Widgets
 
 Visit the [ServerHub Marketplace](https://nickprotop.github.io/serverhub-registry/) to browse available widgets.
