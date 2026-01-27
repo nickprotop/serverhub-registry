@@ -171,6 +171,11 @@
           "type": "integer",
           "minimum": 1,
           "description": "Recommended refresh interval in seconds"
+        },
+        "default_expanded_refresh": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Recommended refresh interval in seconds for expanded dialog view"
         }
       },
       "additionalProperties": false

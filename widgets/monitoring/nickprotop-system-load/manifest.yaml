@@ -31,5 +31,7 @@ config:
       system-load:
         path: system-load.sh
         refresh: 5
+        expanded_refresh: 2
         sha256: "c003d065d6bc98097cf369454cb0bd26f5fec063bddfc428bec7b16a2b1f2156"
   default_refresh: 5
+  default_expanded_refresh: 2
