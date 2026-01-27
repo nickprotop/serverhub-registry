@@ -1,0 +1,37 @@
+schema_version: "1.0"
+
+metadata:
+  id: "nickprotop/pi-sensors"
+  name: "Pi Sensors"
+  author: "nickprotop"
+  homepage: "https://github.com/nickprotop/serverhub-registry/tree/main/widgets/monitoring/nickprotop-pi-sensors"
+  description: "Monitor Raspberry Pi temperature, throttling status, and voltages with fallback support for non-Pi systems"
+  category: "monitoring"
+  tags: ["raspberry-pi", "temperature", "throttling", "sensors", "hardware"]
+  license: "MIT"
+  verification_level: "verified"
+
+versions:
+  - version: "1.0.0"
+    released: "2025-01-27T12:00:00Z"
+    min_serverhub_version: "0.1.0"
+    changelog: "Initial release with vcgencmd support and thermal zone fallback"
+    artifacts:
+      - name: "pi-sensors.sh"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-pi-sensors/v1.0.0/pi-sensors.sh"
+        sha256: "2bd58dc0926a0de707d50f609047126815c370ca30d8d4170dd68aebcd8f2c43"
+
+dependencies:
+  system_commands: ["awk", "bc"]
+  optional: ["vcgencmd"]
+
+config:
+  example: |
+    widgets:
+      pi-sensors:
+        path: pi-sensors.sh
+        refresh: 5
+        expanded_refresh: 3
+        sha256: "2bd58dc0926a0de707d50f609047126815c370ca30d8d4170dd68aebcd8f2c43"
+  default_refresh: 5
+  default_expanded_refresh: 3
