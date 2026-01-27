@@ -1,57 +1,92 @@
 #!/bin/bash
-# ServerHub Widget - System Load Monitor
-# Shows system load averages and CPU count
+# System Load Monitor Widget
+# Displays system load averages with color-coded status indicators
 
-set -euo pipefail
-
-# Get CPU count
-cpu_count=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo "?")
-
-# Get load averages
-if [ -f /proc/loadavg ]; then
-    read -r load1 load5 load15 rest < /proc/loadavg
-else
-    # macOS fallback
-    load_output=$(uptime | awk -F'load averages: ' '{print $2}')
-    load1=$(echo "$load_output" | awk '{print $1}' | tr -d ',')
-    load5=$(echo "$load_output" | awk '{print $2}' | tr -d ',')
-    load15=$(echo "$load_output" | awk '{print $3}' | tr -d ',')
+# Check for extended mode
+EXTENDED=false
+if [[ "$1" == "--extended" ]]; then
+    EXTENDED=true
 fi
 
-# Calculate percentages
-load1_pct=$(awk "BEGIN {printf \"%.0f\", ($load1 / $cpu_count) * 100}")
-load5_pct=$(awk "BEGIN {printf \"%.0f\", ($load5 / $cpu_count) * 100}")
-load15_pct=$(awk "BEGIN {printf \"%.0f\", ($load15 / $cpu_count) * 100}")
+echo "title: System Load"
+echo "refresh: 5"
 
-# Determine color based on load
-if [ "$load1_pct" -lt 70 ]; then
-    color="green"
-elif [ "$load1_pct" -lt 90 ]; then
-    color="yellow"
+# Get core count
+cpu_cores=$(nproc 2>/dev/null || echo "1")
+
+# Get load average
+read -r load1 load5 load15 _ _ < /proc/loadavg
+
+# Calculate load percentage (load1 / cores * 100)
+load_percent=$(awk "BEGIN {printf \"%.0f\", ($load1 / $cpu_cores) * 100}")
+
+# Cap at 100% for display
+[ "$load_percent" -gt 100 ] && load_percent=100
+
+# Determine status based on load
+if [ "$load_percent" -lt 70 ]; then
+    status="ok"
+elif [ "$load_percent" -lt 90 ]; then
+    status="warn"
 else
-    color="red"
+    status="error"
 fi
 
-# Compact view
-cat << EOF
----
-compact:
-  text: "Load: $load1 $load5 $load15 ($cpu_count CPUs)"
-  color: $color
-EOF
+# Main display row
+echo "row: [status:$status] Load: ${load1} / ${cpu_cores} cores (${load_percent}%)"
+echo "row: [progress:${load_percent}:inline]"
 
-# Expanded view (shown when user presses Enter)
-cat << EOF
-expanded:
-  text: |
-    System Load Averages
-    ━━━━━━━━━━━━━━━━━━━━
+# Load averages
+echo "row: [grey70]1min: ${load1} | 5min: ${load5} | 15min: ${load15}[/]"
 
-    1 min:  $load1 (${load1_pct}%)
-    5 min:  $load5 (${load5_pct}%)
-    15 min: $load15 (${load15_pct}%)
+# Extended mode: detailed information
+if [ "$EXTENDED" = true ]; then
+    echo "row: "
+    echo "row: [bold]System Load Details:[/]"
 
-    CPU Cores: $cpu_count
+    # CPU model
+    if [ -f /proc/cpuinfo ]; then
+        cpu_model=$(grep -m1 "model name" /proc/cpuinfo | cut -d':' -f2 | xargs)
+        if [ -n "$cpu_model" ]; then
+            echo "row: [grey70]CPU: ${cpu_model}[/]"
+        fi
+    fi
 
-    Status: $([ $load1_pct -lt 70 ] && echo "✓ Normal" || echo "⚠ High Load")
-EOF
+    echo "row: [grey70]Cores: ${cpu_cores}[/]"
+
+    # Uptime
+    if [ -f /proc/uptime ]; then
+        uptime_seconds=$(cut -d'.' -f1 /proc/uptime)
+        uptime_days=$((uptime_seconds / 86400))
+        uptime_hours=$(( (uptime_seconds % 86400) / 3600 ))
+        uptime_mins=$(( (uptime_seconds % 3600) / 60 ))
+        echo "row: [grey70]Uptime: ${uptime_days}d ${uptime_hours}h ${uptime_mins}m[/]"
+    fi
+
+    # Process count
+    if [ -d /proc ]; then
+        process_count=$(ls -d /proc/[0-9]* 2>/dev/null | wc -l)
+        echo "row: [grey70]Processes: ${process_count}[/]"
+    fi
+
+    # Top CPU processes
+    echo "row: "
+    echo "row: [bold]Top CPU Processes:[/]"
+    ps aux --sort=-%cpu 2>/dev/null | awk 'NR>1 && NR<=6 {
+        cmd = $11
+        gsub(/.*\//, "", cmd)
+        if (length(cmd) > 30) cmd = substr(cmd, 1, 30)
+        printf "row: [grey70]%s: %.1f%% (PID %s)[/]\n", cmd, $3, $2
+    }'
+fi
+
+# Actions
+echo "action: View all processes:ps aux --sort=-%cpu | head -20"
+if [ "$load_percent" -gt 80 ]; then
+    # Get top CPU process for kill action
+    top_pid=$(ps aux --sort=-%cpu 2>/dev/null | awk 'NR==2 {print $2}')
+    top_cmd=$(ps aux --sort=-%cpu 2>/dev/null | awk 'NR==2 {cmd=$11; gsub(/.*\//, "", cmd); print cmd}')
+    if [ -n "$top_pid" ]; then
+        echo "action: [sudo,danger,refresh] Kill ${top_cmd}:kill -9 ${top_pid}"
+    fi
+fi

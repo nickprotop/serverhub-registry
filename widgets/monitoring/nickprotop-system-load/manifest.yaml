@@ -19,7 +19,7 @@ versions:
     artifacts:
       - name: "system-load.sh"
         url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-system-load/v1.0.0/system-load.sh"
-        sha256: "c6a4f39b6720f235d26290d5d3e611569232e9b0b3070f0ec176a70a6473ffd3"
+        sha256: "c003d065d6bc98097cf369454cb0bd26f5fec063bddfc428bec7b16a2b1f2156"
 
 dependencies:
   system_commands: ["awk"]
@@ -31,5 +31,5 @@ config:
       system-load:
         path: system-load.sh
         refresh: 5
-        sha256: "c6a4f39b6720f235d26290d5d3e611569232e9b0b3070f0ec176a70a6473ffd3"
+        sha256: "c003d065d6bc98097cf369454cb0bd26f5fec063bddfc428bec7b16a2b1f2156"
   default_refresh: 5
