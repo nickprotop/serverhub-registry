@@ -4,7 +4,7 @@ Official marketplace for ServerHub community widgets.
 
 ## 🔍 Browse Widgets
 
-Visit the [ServerHub Marketplace](https://serverhub.github.io/registry/) to browse available widgets.
+Visit the [ServerHub Marketplace](https://nickprotop.github.io/serverhub-registry/) to browse available widgets.
 
 Or use the CLI:
 ```bash
