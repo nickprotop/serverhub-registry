@@ -62,8 +62,8 @@ Total widgets: 0 (marketplace launching soon!)
 
 ## 🤝 Community
 
-- Report issues: [ServerHub Issues](https://github.com/serverhub/serverhub/issues)
-- Discussions: [ServerHub Discussions](https://github.com/serverhub/serverhub/discussions)
+- Report issues: [ServerHub Issues](https://github.com/nickprotop/serverhub/issues)
+- Discussions: [ServerHub Discussions](https://github.com/nickprotop/serverhub/discussions)
 
 ---
 
