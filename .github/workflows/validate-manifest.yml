@@ -3,7 +3,7 @@ name: Validate Widget Manifest
 on:
   pull_request:
     paths:
-      - 'widgets/**/*.yaml'
+      - 'widgets/**'
       - 'schemas/**/*.json'
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
 
       - name: Validate manifest schema
         run: |
-          for manifest in widgets/**/*.yaml; do
+          for manifest in widgets/*/*/manifest.yaml; do
             if [ -f "$manifest" ]; then
               echo "Validating $manifest..."
               # Convert YAML to JSON for ajv

@@ -10,7 +10,7 @@ echo '  "widgets": ['
 
 first=true
 
-for manifest in widgets/**/*.yaml; do
+for manifest in widgets/*/*/manifest.yaml; do
     if [ ! -f "$manifest" ]; then
         continue
     fi
@@ -24,9 +24,8 @@ for manifest in widgets/**/*.yaml; do
     verification=$(grep "verification_level:" "$manifest" | head -1 | sed 's/.*verification_level: *"//' | sed 's/".*//')
     version=$(grep "version:" "$manifest" | head -1 | sed 's/.*version: *"//' | sed 's/".*//')
 
-    # Get relative path to manifest
-    manifest_url="${manifest#widgets/}"
-    manifest_url="widgets/$manifest_url"
+    # Get relative path to manifest (from widgets/)
+    manifest_url="${manifest}"
 
     # Skip if required fields are missing
     if [ -z "$id" ] || [ -z "$name" ]; then

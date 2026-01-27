@@ -1,0 +1,35 @@
+schema_version: "1.0"
+
+metadata:
+  id: "nickprotop/system-load"
+  name: "System Load Monitor"
+  author: "nickprotop"
+  homepage: "https://github.com/nickprotop/serverhub-registry/tree/main/widgets/monitoring/nickprotop-system-load"
+  description: "Monitor system load averages with color-coded status indicators"
+  category: "monitoring"
+  tags: ["load", "cpu", "monitoring", "performance"]
+  license: "MIT"
+  verification_level: "verified"
+
+versions:
+  - version: "1.0.0"
+    released: "2024-01-27T12:00:00Z"
+    min_serverhub_version: "0.1.0"
+    changelog: "Initial release with 1/5/15 minute load averages"
+    artifacts:
+      - name: "system-load.sh"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-system-load/v1.0.0/system-load.sh"
+        sha256: "c6a4f39b6720f235d26290d5d3e611569232e9b0b3070f0ec176a70a6473ffd3"
+
+dependencies:
+  system_commands: ["awk"]
+  optional: ["nproc"]
+
+config:
+  example: |
+    widgets:
+      system-load:
+        path: system-load.sh
+        refresh: 5
+        sha256: "c6a4f39b6720f235d26290d5d3e611569232e9b0b3070f0ec176a70a6473ffd3"
+  default_refresh: 5

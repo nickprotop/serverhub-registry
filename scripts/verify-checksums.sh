@@ -8,7 +8,7 @@ echo ""
 
 errors=0
 
-for manifest in widgets/**/*.yaml; do
+for manifest in widgets/*/*/manifest.yaml; do
     if [ ! -f "$manifest" ]; then
         continue
     fi

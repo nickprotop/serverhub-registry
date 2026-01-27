@@ -8,7 +8,7 @@ echo ""
 
 errors=0
 
-for manifest in widgets/**/*.yaml; do
+for manifest in widgets/*/*/manifest.yaml; do
     if [ ! -f "$manifest" ]; then
         continue
     fi
@@ -30,23 +30,25 @@ for manifest in widgets/**/*.yaml; do
         errors=$((errors + 1))
     fi
 
-    # Extract filename without path and extension
-    filename=$(basename "$manifest" .yaml)
+    # Extract directory name
+    widget_dir=$(dirname "$manifest")
+    dirname=$(basename "$widget_dir")
 
-    # Expected filename format: username-widget-name
-    expected_filename=$(echo "$id" | sed 's/\//-/')
+    # Expected directory name format: username-widget-name
+    expected_dirname=$(echo "$id" | sed 's/\//-/')
 
-    if [ "$filename" != "$expected_filename" ]; then
-        echo "  ⚠  Filename mismatch: expected ${expected_filename}.yaml, got ${filename}.yaml"
+    if [ "$dirname" != "$expected_dirname" ]; then
+        echo "  ⚠  Directory mismatch: expected ${expected_dirname}/, got ${dirname}/"
         echo "     (ID: $id)"
     fi
 
     # Check category directory matches manifest category
     category=$(grep "category:" "$manifest" | head -1 | sed 's/.*category: *"//' | sed 's/".*//')
-    manifest_dir=$(dirname "$manifest" | xargs basename)
+    # Get category from path (widgets/CATEGORY/widget-name/)
+    manifest_category=$(echo "$manifest" | cut -d'/' -f2)
 
-    if [ "$category" != "$manifest_dir" ]; then
-        echo "  ❌ Category mismatch: manifest says '$category' but file is in '$manifest_dir/'"
+    if [ "$category" != "$manifest_category" ]; then
+        echo "  ❌ Category mismatch: manifest says '$category' but file is in '$manifest_category/'"
         errors=$((errors + 1))
     fi
 

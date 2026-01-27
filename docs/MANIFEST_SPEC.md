@@ -8,9 +8,22 @@ Widget manifests are YAML files that describe a ServerHub marketplace widget, it
 
 ## File Location
 
-Manifests are stored in the registry repository under:
+Widgets are stored in the registry repository with this structure:
 ```
-widgets/<category>/<username-widget-name>.yaml
+widgets/<category>/<username-widget-name>/
+├── manifest.yaml          # Widget metadata (required)
+├── README.md              # Widget documentation (required)
+└── v1.0.0/               # Version directory
+    └── widget-name.sh     # Widget script
+```
+
+**Example:**
+```
+widgets/monitoring/nickprotop-system-load/
+├── manifest.yaml
+├── README.md
+└── v1.0.0/
+    └── system-load.sh
 ```
 
 ## Full Example
@@ -22,7 +35,7 @@ metadata:
   id: "username/widget-name"
   name: "Human-Readable Widget Name"
   author: "github-username"
-  homepage: "https://github.com/username/widget-repo"
+  homepage: "https://github.com/nickprotop/serverhub-registry/tree/main/widgets/monitoring/username-widget-name"
   description: "Brief description of what the widget does (1-2 sentences)"
   category: "monitoring"
   tags: ["api", "health", "http"]
@@ -36,7 +49,7 @@ versions:
     changelog: "Initial release with basic functionality"
     artifacts:
       - name: "widget-name.sh"
-        url: "https://github.com/username/widget-repo/releases/download/v1.0.0/widget-name.sh"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/username-widget-name/v1.0.0/widget-name.sh"
         sha256: "a1b2c3d4e5f6789..."
 
 dependencies:
@@ -197,11 +210,11 @@ Filename of the artifact.
 ##### `artifacts[].url` (required)
 
 **Type:** String (URL)
-**Example:** `"https://github.com/user/repo/releases/download/v1.0.0/api-health.sh"`
+**Example:** `"https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/username-widget/v1.0.0/widget.sh"`
 
 Download URL. Must be:
 - HTTPS only
-- GitHub releases or raw.githubusercontent.com
+- raw.githubusercontent.com pointing to this registry
 - Publicly accessible
 
 ##### `artifacts[].sha256` (required)
@@ -285,20 +298,20 @@ sha256sum your-widget.sh
 # Copy the EXACT output (lowercase hex)
 ```
 
-❌ **Wrong URL pattern** - Must be GitHub releases or raw content:
+❌ **Wrong URL pattern** - Must be raw.githubusercontent.com pointing to this registry:
 ```yaml
 # ✅ Good
-url: "https://github.com/user/repo/releases/download/v1.0.0/widget.sh"
-url: "https://raw.githubusercontent.com/user/repo/main/widget.sh"
+url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/username-widget/v1.0.0/widget.sh"
 
 # ❌ Bad
 url: "https://example.com/widget.sh"
 url: "http://github.com/..."  # Must be HTTPS
+url: "https://github.com/other-repo/..."  # Must be from this registry
 ```
 
-❌ **Mismatched ID and filename** - These should align:
+❌ **Mismatched ID and directory name** - These should align:
 ```yaml
-# Filename: widgets/monitoring/johndoe-api-health.yaml
+# Directory: widgets/monitoring/johndoe-api-health/
 metadata:
   id: "johndoe/api-health"  # ✅ Matches
   id: "johndoe/api_health"  # ❌ Underscore doesn't match hyphen
