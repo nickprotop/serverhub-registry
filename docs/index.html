@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServerHub Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .search-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .category-filter {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .widget-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .widget-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .widget-id {
+            font-size: 0.9rem;
+            color: #666;
+            font-family: 'Courier New', monospace;
+            margin-top: 0.2rem;
+        }
+
+        .badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge.verified {
+            background: #10b981;
+            color: white;
+        }
+
+        .badge.community {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .badge.unverified {
+            background: #ef4444;
+            color: white;
+        }
+
+        .widget-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .widget-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .widget-meta span {
+            display: flex;
+            align-items: center;
+        }
+
+        .install-code {
+            background: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: #333;
+            border: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .install-code:hover {
+            background: #e9ecef;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #888;
+            margin-top: 3rem;
+        }
+
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🚀 ServerHub Marketplace</h1>
+        <p>Community widget repository for ServerHub</p>
+    </header>
+
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search widgets...">
+            <div class="category-filter" id="categoryFilter">
+                <button class="category-btn active" data-category="all">All</button>
+            </div>
+        </div>
+
+        <div class="widgets-grid" id="widgetsGrid">
+            <div class="no-results">Loading widgets...</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            <a href="https://github.com/nickprotop/serverhub-registry">View on GitHub</a> |
+            <a href="CONTRIBUTING.html">Contribute a Widget</a> |
+            <a href="https://github.com/nickprotop/ServerHub">ServerHub</a>
+        </p>
+    </footer>
+
+    <script>
+        let allWidgets = [];
+        let currentCategory = 'all';
+
+        async function loadWidgets() {
+            try {
+                const response = await fetch('../registry.json');
+                const data = await response.json();
+                allWidgets = data.widgets;
+
+                // Extract unique categories
+                const categories = ['all', ...new Set(allWidgets.map(w => w.category))];
+                renderCategoryFilter(categories);
+                renderWidgets(allWidgets);
+            } catch (error) {
+                document.getElementById('widgetsGrid').innerHTML =
+                    '<div class="no-results">Failed to load widgets. Please try again later.</div>';
+            }
+        }
+
+        function renderCategoryFilter(categories) {
+            const filter = document.getElementById('categoryFilter');
+            filter.innerHTML = categories.map(cat =>
+                `<button class="category-btn ${cat === 'all' ? 'active' : ''}"
+                         data-category="${cat}">${cat.charAt(0).toUpperCase() + cat.slice(1)}</button>`
+            ).join('');
+
+            filter.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentCategory = e.target.dataset.category;
+                    filterAndRender();
+                });
+            });
+        }
+
+        function renderWidgets(widgets) {
+            const grid = document.getElementById('widgetsGrid');
+
+            if (widgets.length === 0) {
+                grid.innerHTML = '<div class="no-results">No widgets found matching your search.</div>';
+                return;
+            }
+
+            grid.innerHTML = widgets.map(widget => `
+                <div class="widget-card">
+                    <div class="widget-header">
+                        <div>
+                            <div class="widget-title">${widget.name}</div>
+                            <div class="widget-id">${widget.id}</div>
+                        </div>
+                        <span class="badge ${widget.verification_level}">${widget.verification_level}</span>
+                    </div>
+                    <p class="widget-description">${widget.description}</p>
+                    <div class="widget-meta">
+                        <span>📦 v${widget.latest_version}</span>
+                        <span>👤 ${widget.author}</span>
+                        <span>📂 ${widget.category}</span>
+                    </div>
+                    <div class="install-code" onclick="copyToClipboard(this)">
+                        serverhub marketplace install ${widget.id}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterAndRender() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = allWidgets.filter(widget => {
+                const matchesCategory = currentCategory === 'all' || widget.category === currentCategory;
+                const matchesSearch = searchTerm === '' ||
+                    widget.name.toLowerCase().includes(searchTerm) ||
+                    widget.description.toLowerCase().includes(searchTerm) ||
+                    widget.id.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+            renderWidgets(filtered);
+        }
+
+        function copyToClipboard(element) {
+            const text = element.textContent.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                const original = element.textContent;
+                element.textContent = '✓ Copied!';
+                setTimeout(() => element.textContent = original, 2000);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterAndRender);
+        loadWidgets();
+    </script>
+</body>
+</html>
