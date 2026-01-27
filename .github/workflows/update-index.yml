@@ -31,14 +31,16 @@ jobs:
       - name: Generate registry index
         run: |
           bash scripts/generate-index.sh > registry.json
+          # Copy to docs for GitHub Pages
+          cp registry.json docs/registry.json
 
       - name: Commit and push if changed
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add registry.json
+          git add registry.json docs/registry.json
           if git diff --staged --quiet; then
-            echo "No changes to registry.json"
+            echo "No changes to registry index"
           else
             git commit -m "Update registry index [skip ci]"
             git push

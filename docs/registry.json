@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-01-27T00:27:49Z",
+  "widgets": [
+    {
+      "id": "nickprotop/system-load",
+      "name": "System Load Monitor",
+      "author": "nickprotop",
+      "category": "monitoring",
+      "description": "Monitor system load averages with color-coded status indicators",
+      "verification_level": "verified",
+      "latest_version": "1.0",
+      "manifest_url": "widgets/monitoring/nickprotop-system-load/manifest.yaml"
+    }
+
+  ]
+}

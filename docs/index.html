@@ -238,14 +238,8 @@
 
         async function loadWidgets() {
             try {
-                // Try relative path first, then absolute GitHub raw URL
-                let response;
-                try {
-                    response = await fetch('../registry.json');
-                } catch (e) {
-                    // Fallback to GitHub raw URL
-                    response = await fetch('https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/registry.json');
-                }
+                // Fetch registry.json from docs folder (same location as index.html)
+                const response = await fetch('./registry.json');
                 const data = await response.json();
                 allWidgets = data.widgets;
 
