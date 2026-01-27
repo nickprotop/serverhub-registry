@@ -24,7 +24,7 @@ Keep this checksum - you'll need it for the manifest.
 Fork the `serverhub-registry` repository and create a new branch:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/serverhub-registry.git
+git clone https://github.com/nickprotop/serverhub-registry.git
 cd serverhub-registry
 git checkout -b add-username-widget-name
 ```
