@@ -1,0 +1,37 @@
+schema_version: "1.0"
+
+metadata:
+  id: "nickprotop/nvidia-gpu"
+  name: "NVIDIA GPU Monitor"
+  author: "nickprotop"
+  homepage: "https://github.com/nickprotop/serverhub-registry/tree/main/widgets/monitoring/nickprotop-nvidia-gpu"
+  description: "Monitor NVIDIA GPU temperature, utilization, memory, and power usage"
+  category: "monitoring"
+  tags: ["nvidia", "gpu", "temperature", "cuda", "hardware"]
+  license: "MIT"
+  verification_level: "verified"
+
+versions:
+  - version: "1.0.0"
+    released: "2025-01-27T12:00:00Z"
+    min_serverhub_version: "0.1.0"
+    changelog: "Initial release with nvidia-smi integration"
+    artifacts:
+      - name: "nvidia-gpu.sh"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-nvidia-gpu/v1.0.0/nvidia-gpu.sh"
+        sha256: "ab29ac240badb075001133a481926a37086ba0b0936fc359ff8b9dcd27392ac4"
+
+dependencies:
+  system_commands: ["nvidia-smi"]
+  optional: []
+
+config:
+  example: |
+    widgets:
+      nvidia-gpu:
+        path: nvidia-gpu.sh
+        refresh: 3
+        expanded_refresh: 2
+        sha256: "ab29ac240badb075001133a481926a37086ba0b0936fc359ff8b9dcd27392ac4"
+  default_refresh: 3
+  default_expanded_refresh: 2

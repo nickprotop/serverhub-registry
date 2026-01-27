@@ -1,0 +1,37 @@
+schema_version: "1.0"
+
+metadata:
+  id: "nickprotop/pihole-stats"
+  name: "Pi-hole Stats"
+  author: "nickprotop"
+  homepage: "https://github.com/nickprotop/serverhub-registry/tree/main/widgets/monitoring/nickprotop-pihole-stats"
+  description: "Monitor Pi-hole DNS blocking statistics including queries, blocked ads, and blocklist size"
+  category: "monitoring"
+  tags: ["pihole", "dns", "adblock", "network", "privacy"]
+  license: "MIT"
+  verification_level: "verified"
+
+versions:
+  - version: "1.0.0"
+    released: "2025-01-27T12:00:00Z"
+    min_serverhub_version: "0.1.0"
+    changelog: "Initial release with auto-detection of local Pi-hole"
+    artifacts:
+      - name: "pihole-stats.sh"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-pihole-stats/v1.0.0/pihole-stats.sh"
+        sha256: "ea8654818503f05d31053ae84ebe89d7bf22d85cf5900a4121198b16aa65ef04"
+
+dependencies:
+  system_commands: ["curl"]
+  optional: ["jq"]
+
+config:
+  example: |
+    widgets:
+      pihole-stats:
+        path: pihole-stats.sh
+        refresh: 30
+        expanded_refresh: 10
+        sha256: "ea8654818503f05d31053ae84ebe89d7bf22d85cf5900a4121198b16aa65ef04"
+  default_refresh: 30
+  default_expanded_refresh: 10

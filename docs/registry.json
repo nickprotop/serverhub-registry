@@ -1,7 +1,18 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-01-27T17:33:33Z",
+  "updated_at": "2026-01-27T17:44:52Z",
   "widgets": [
+    {
+      "id": "nickprotop/nvidia-gpu",
+      "name": "NVIDIA GPU Monitor",
+      "author": "nickprotop",
+      "category": "monitoring",
+      "description": "Monitor NVIDIA GPU temperature, utilization, memory, and power usage",
+      "verification_level": "verified",
+      "latest_version": "1.0",
+      "manifest_url": "widgets/monitoring/nickprotop-nvidia-gpu/manifest.yaml"
+    }
+,
     {
       "id": "nickprotop/pi-sensors",
       "name": "Pi Sensors",
@@ -11,6 +22,17 @@
       "verification_level": "verified",
       "latest_version": "1.0",
       "manifest_url": "widgets/monitoring/nickprotop-pi-sensors/manifest.yaml"
+    }
+,
+    {
+      "id": "nickprotop/pihole-stats",
+      "name": "Pi-hole Stats",
+      "author": "nickprotop",
+      "category": "monitoring",
+      "description": "Monitor Pi-hole DNS blocking statistics including queries, blocked ads, and blocklist size",
+      "verification_level": "verified",
+      "latest_version": "1.0",
+      "manifest_url": "widgets/monitoring/nickprotop-pihole-stats/manifest.yaml"
     }
 ,
     {
