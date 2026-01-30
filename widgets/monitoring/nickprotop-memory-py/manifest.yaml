@@ -1,0 +1,37 @@
+schema_version: "1.0"
+
+metadata:
+  id: "nickprotop/memory-py"
+  name: "Memory Monitor (Python)"
+  author: "nickprotop"
+  homepage: "https://github.com/nickprotop/serverhub-registry/tree/main/widgets/monitoring/nickprotop-memory-py"
+  description: "Advanced memory monitoring widget written in Python. Shows RAM and swap usage with detailed statistics. Language-agnostic widget protocol demonstration."
+  category: "monitoring"
+  tags: ["memory", "ram", "swap", "python", "monitoring", "system"]
+  license: "MIT"
+  verification_level: "verified"
+
+versions:
+  - version: "1.0.0"
+    released: "2025-01-30T12:00:00Z"
+    min_serverhub_version: "0.0.15"
+    changelog: "Initial release - Python implementation with psutil support and fallback to /proc parsing"
+    artifacts:
+      - name: "memory.py"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-memory-py/v1.0.0/memory.py"
+        sha256: "8e9cbedecb559cac59b36a15eafdec4cb89b8b76df75ebe16bda0c3c8b0fbd5d"
+
+dependencies:
+  system_commands: ["python3"]
+  optional: ["python3-psutil"]  # Falls back to /proc parsing if not available
+
+config:
+  example: |
+    widgets:
+      memory-py:
+        path: memory.py
+        refresh: 5
+        expanded_refresh: 2
+        sha256: "8e9cbedecb559cac59b36a15eafdec4cb89b8b76df75ebe16bda0c3c8b0fbd5d"
+  default_refresh: 5
+  default_expanded_refresh: 2
