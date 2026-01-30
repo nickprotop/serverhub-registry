@@ -1,7 +1,18 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-01-27T17:45:10Z",
+  "updated_at": "2026-01-30T16:00:16Z",
   "widgets": [
+    {
+      "id": "nickprotop/memory-py",
+      "name": "Memory Monitor (Python)",
+      "author": "nickprotop",
+      "category": "monitoring",
+      "description": "Advanced memory monitoring widget written in Python. Shows RAM and swap usage with detailed statistics. Language-agnostic widget protocol demonstration.",
+      "verification_level": "verified",
+      "latest_version": "1.0",
+      "manifest_url": "widgets/monitoring/nickprotop-memory-py/manifest.yaml"
+    }
+,
     {
       "id": "nickprotop/nvidia-gpu",
       "name": "NVIDIA GPU Monitor",
