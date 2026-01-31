@@ -12,6 +12,15 @@ metadata:
   verification_level: "verified"
 
 versions:
+  - version: "1.1.0"
+    released: "2025-01-31T23:00:00Z"
+    min_serverhub_version: "0.0.15"
+    changelog: "Modernized to match built-in widget: Added warm/cool gradients, fixed graph scales (0-100), implemented history staleness detection, removed sparkline from dashboard mode"
+    artifacts:
+      - name: "memory.py"
+        url: "https://raw.githubusercontent.com/nickprotop/serverhub-registry/main/widgets/monitoring/nickprotop-memory-py/v1.1.0/memory.py"
+        sha256: "ae5a6e40771f4c7272c65e54dbf690d2aee878b30bdaedc2fac405d3e8cbe9ad"
+
   - version: "1.0.0"
     released: "2025-01-30T12:00:00Z"
     min_serverhub_version: "0.0.15"
@@ -32,6 +41,6 @@ config:
         path: memory.py
         refresh: 5
         expanded_refresh: 2
-        sha256: "8e9cbedecb559cac59b36a15eafdec4cb89b8b76df75ebe16bda0c3c8b0fbd5d"
+        sha256: "ae5a6e40771f4c7272c65e54dbf690d2aee878b30bdaedc2fac405d3e8cbe9ad"
   default_refresh: 5
   default_expanded_refresh: 2
