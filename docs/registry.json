@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-01-31T22:22:00Z",
+  "updated_at": "2026-01-31T22:25:37Z",
   "widgets": [
     {
       "id": "nickprotop/memory-py",
@@ -9,7 +9,7 @@
       "category": "monitoring",
       "description": "Advanced memory monitoring widget written in Python. Shows RAM and swap usage with detailed statistics. Language-agnostic widget protocol demonstration.",
       "verification_level": "verified",
-      "latest_version": "1.0",
+      "latest_version": "1.1.0",
       "manifest_url": "widgets/monitoring/nickprotop-memory-py/manifest.yaml"
     }
 ,
@@ -20,19 +20,8 @@
       "category": "monitoring",
       "description": "Monitor NVIDIA GPU temperature, utilization, memory, and power usage",
       "verification_level": "verified",
-      "latest_version": "1.0",
+      "latest_version": "1.0.0",
       "manifest_url": "widgets/monitoring/nickprotop-nvidia-gpu/manifest.yaml"
-    }
-,
-    {
-      "id": "nickprotop/pi-sensors",
-      "name": "Pi Sensors",
-      "author": "nickprotop",
-      "category": "monitoring",
-      "description": "Monitor Raspberry Pi temperature, throttling status, and voltages with fallback support for non-Pi systems",
-      "verification_level": "verified",
-      "latest_version": "1.0",
-      "manifest_url": "widgets/monitoring/nickprotop-pi-sensors/manifest.yaml"
     }
 ,
     {
@@ -42,8 +31,19 @@
       "category": "monitoring",
       "description": "Monitor Pi-hole DNS blocking statistics including queries, blocked ads, and blocklist size",
       "verification_level": "verified",
-      "latest_version": "1.0",
+      "latest_version": "1.0.0",
       "manifest_url": "widgets/monitoring/nickprotop-pihole-stats/manifest.yaml"
+    }
+,
+    {
+      "id": "nickprotop/pi-sensors",
+      "name": "Pi Sensors",
+      "author": "nickprotop",
+      "category": "monitoring",
+      "description": "Monitor Raspberry Pi temperature, throttling status, and voltages with fallback support for non-Pi systems",
+      "verification_level": "verified",
+      "latest_version": "1.0.0",
+      "manifest_url": "widgets/monitoring/nickprotop-pi-sensors/manifest.yaml"
     }
 ,
     {
@@ -53,7 +53,7 @@
       "category": "monitoring",
       "description": "Monitor system load averages with color-coded status indicators",
       "verification_level": "verified",
-      "latest_version": "1.0",
+      "latest_version": "1.0.0",
       "manifest_url": "widgets/monitoring/nickprotop-system-load/manifest.yaml"
     }
 

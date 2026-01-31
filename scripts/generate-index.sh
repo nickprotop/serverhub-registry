@@ -22,7 +22,7 @@ for manifest in widgets/*/*/manifest.yaml; do
     category=$(grep "category:" "$manifest" | head -1 | sed 's/.*category: *"//' | sed 's/".*//')
     description=$(grep "description:" "$manifest" | head -1 | sed 's/.*description: *"//' | sed 's/".*//')
     verification=$(grep "verification_level:" "$manifest" | head -1 | sed 's/.*verification_level: *"//' | sed 's/".*//')
-    version=$(grep "version:" "$manifest" | head -1 | sed 's/.*version: *"//' | sed 's/".*//')
+    version=$(grep "  - version:" "$manifest" | head -1 | sed 's/.*version: *"//' | sed 's/".*//')
 
     # Get relative path to manifest (from widgets/)
     manifest_url="${manifest}"
